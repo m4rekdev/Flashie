@@ -1,10 +1,17 @@
 const client = require('../app.js');
 const { EmbedBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { Emoji } = require('./enums.js');
 
 module.exports = {
     GUILD_ONLY: new EmbedBuilder()
         .setColor(client.accentColor)
         .setTitle('Sorry, but this command can only be used in servers.'),
+    
+    NO_RESULTS:
+        new EmbedBuilder()
+            .setColor(client.accentColor)
+            .setTitle('Error')
+            .setDescription('Couldn\'t find any matches to your search!'),
 
     /**
      * 
@@ -61,7 +68,7 @@ module.exports = {
      * @param {number} uptime Bot's uptime
      * @returns {object} Discord Embed object
      */
-    STATS: async (totalLatency, discordLatency, wsLatency, uptime) =>
+    STATS: (totalLatency, discordLatency, wsLatency, uptime) =>
         new EmbedBuilder()
             .setColor(client.accentColor)
             .setTitle('Stats')
@@ -73,4 +80,22 @@ module.exports = {
             🕛 __Uptime__ 🕛
             > ${uptime}`)
             .setTimestamp(),
+    /**
+     * 
+     * @param {number} totalLatency The total latency of the action
+     * @param {number} discordLatency Discord latency
+     * @param {number} wsLatency Websocket latency
+     * @param {number} uptime Bot's uptime
+     * @returns {object} Discord Embed object
+     */
+    COZY: (attachmentName, platform, target) =>
+        new EmbedBuilder()
+            .setColor(client.accentColor)
+            .setTitle('Cozy')
+            .setDescription(`You're looking cozy today! ${Emoji.KITTY_COMFY}`)
+            .addFields(
+                { name: 'Platform', value: platform, inline: true },
+                { name: 'Target', value: target, inline: true },
+            )
+            .setImage(`attachment://${attachmentName}`),
 };
