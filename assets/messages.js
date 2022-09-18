@@ -1,6 +1,5 @@
 const client = require('../app.js');
 const { EmbedBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const ms = require('ms'); 
 
 module.exports = {
     GUILD_ONLY: new EmbedBuilder()
