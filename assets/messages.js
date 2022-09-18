@@ -14,7 +14,13 @@ module.exports = {
     ERROR_USER: (errorId) => ({
         embed: new EmbedBuilder()
             .setColor(client.accentColor)
-            .setTitle(`Error #${errorId}`)
+            .setTitle(`Error`)
+            .addFields([
+                {
+                    name: `Error ID`,
+                    value: errorId,
+                },
+            ])
             .setDescription('An error occurred during the processing of this action. It would be appreciated if you report this error on our GitHub page.'),
         button: new ButtonBuilder()
             .setStyle(ButtonStyle.Link)
@@ -22,7 +28,7 @@ module.exports = {
             .setLabel('Report error'),
     }),
 
-     /**
+     /**    
      * 
      * @param {number} executorId ID of the executor
      * @param {string} executorUsername Username of the executor
