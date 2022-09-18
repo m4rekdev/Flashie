@@ -24,9 +24,5 @@ module.exports = {
     Platforms: {
         discord: 'Discord',
         minecraft: 'Minecraft',
-        instagram: 'Instagram',
-        tiktok: 'TikTok',
-        youtube: 'YouTube',
-        twitter: 'Twitter',
     }
 }
