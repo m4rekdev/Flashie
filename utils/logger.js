@@ -6,7 +6,7 @@ module.exports = {
         if (!type) throw new TypeError('\'Type\' is undefined');
         if (!text) throw new TypeError('\'Text\' is undefined');
 
-        console.clear()
+        console.clear();
         const chars = ["| ", "/ ", "- ", "\\ "];
         let i = 0;
 
