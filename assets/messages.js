@@ -1,6 +1,6 @@
 const client = require('../app.js');
 const { EmbedBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const formatDuration = require('../utils/formatDuration.js'); 
+const ms = require('ms'); 
 
 module.exports = {
     GUILD_ONLY: new EmbedBuilder()
@@ -50,48 +50,22 @@ module.exports = {
 
     /**
      * 
-     * @param {string} executorTag Tag and username of the executor
-     * @param {string} executorAvatar URL of the executor's avatar
+     * @param {number} totalLatency The total latency of the action
+     * @param {number} discordLatency Discord latency
+     * @param {number} wsLatency Websocket latency
+     * @param {number} uptime Bot's uptime
      * @returns {object} Discord Embed object
      */
-    PING: (executorTag, executorAvatar, createdTimestamp) =>
+    STATS: async (totalLatency, discordLatency, wsLatency, uptime) =>
         new EmbedBuilder()
             .setColor(client.accentColor)
-            .setTitle(`Ping`)
-            .setAuthor({
-                name: `${executorTag}`,
-                iconURL: executorAvatar,
-            })
-            .setDescription(`🏓 **Pong!**
-            > Latency: ${Date.now() - createdTimestamp + `ms`}
-            > API Latency: ${Math.round(client.ws.ping) + `ms`}`)
-            .setTimestamp(),
-
-    /**
-     * 
-     * @param {string} executorTag Tag and username of the executor
-     * @param {string} executorAvatar URL of the executor's avatar
-     * @returns {object} Discord Embed object
-     */
-     STATS: async (executorTag, executorAvatar, createdTimestamp) =>
-        new EmbedBuilder()
-            .setColor(client.accentColor)
-            .setTitle(`Stats`)
-            .setAuthor({
-                name: `${executorTag}`,
-                iconURL: executorAvatar,
-            })
+            .setTitle('Stats')
             .setDescription(`🏓 **Ping**
-            > Latency: ${Date.now() - createdTimestamp + `ms`}
-            > API Latency: ${Math.round(client.ws.ping) + `ms`}
-            
-            🕛 __Uptime__ 🕛
-            > ${await formatDuration.format(client.uptime)}`)
-            .setTimestamp(),
+            > Total Latency: ${totalLatency}ms
+            > Discord Latency: ${discordLatency}ms
+            > WS Latency: ${wsLatency}ms
 
-    // PING_BUTTON: new ButtonBuilder()
-    //     .setStyle(ButtonStyle.Primary)
-    //     .setCustomId('ping')
-    //     .setLabel('Ping')
-    //     .setEmoji('🏓'),
+            🕛 __Uptime__ 🕛
+            > ${uptime}`)
+            .setTimestamp(),
 };

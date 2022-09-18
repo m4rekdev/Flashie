@@ -1,5 +1,4 @@
 const { Message, CommandInteraction, ButtonInteraction } = require('discord.js');
-const client = require('../app.js');
 
 /**
  * @returns {boolean}
@@ -9,7 +8,9 @@ const isMessage = (source) => source instanceof Message;
 /**
  * @returns {boolean}
  */
-const isInteraction = (source) => source instanceof CommandInteraction || source instanceof ButtonInteraction;
+const isInteraction = (source) => 
+    source instanceof CommandInteraction
+    || source instanceof ButtonInteraction;
 
 module.exports = {
     /**
@@ -18,7 +19,9 @@ module.exports = {
      * @param {object} options 
      * @returns {Promise<Message | undefined>}
      */
-    sendMessage: (source, response, options = { edit: true, reply: false }) => new Promise((resolve, reject) => {
+    sendMessage: (source, response, options = { edit: true, reply: false, fetch: true }) => new Promise((resolve, reject) => {
+        if (options.fetch) response.fetchReply = true;
+
         if (isMessage(source)) 
             return resolve(
                 options.edit && source.editable 
