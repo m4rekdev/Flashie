@@ -24,5 +24,8 @@ module.exports = {
     Platforms: {
         discord: 'Discord',
         minecraft: 'Minecraft',
-    }
-}
+    },
+    Emoji: {
+        KITTY_COMFY: '<:kittycomfy:1021101256284065863>',
+    },
+};
