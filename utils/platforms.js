@@ -7,7 +7,7 @@ module.exports = {
      * @returns {object | Error}
      */
     discord: (user) => new Promise((resolve, reject) => {
-        if (!user) reject({ message: 'INVALID_USER' });
+        if (!(user instanceof User)) reject({ message: 'INVALID_USER' });
 
         resolve({ name: user.username, avatar: user.displayAvatarURL({ extension: 'png', size: 256 }) });
     }),
