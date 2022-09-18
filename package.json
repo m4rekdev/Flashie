@@ -9,6 +9,7 @@
   "author": "goodbyepavlyi <3#7332 & LosingEnergy#0053",
   "license": "GPL",
   "dependencies": {
+    "axios": "^0.27.2",
     "canvas": "^2.10.1",
     "chalk": "^4.1.2",
     "discord.js": "^14.3.0",
