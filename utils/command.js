@@ -31,7 +31,7 @@ module.exports = {
         
         if (isInteraction(source)) 
             return resolve(
-                options.reply || !source.replied
+                options.reply || !source.replied && !source.deferred
                 ? source.reply(response)
                 : (options.edit ? source.editReply(response) : source.followUp(response)) 
             );
