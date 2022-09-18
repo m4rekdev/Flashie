@@ -1,14 +1,14 @@
 const { AutocompleteInteraction, CommandInteraction, Message, ActionRowBuilder, User } = require('discord.js');
 const { InteractionType, CommandType } = require('../../assets/enums.js');
-const { PING } = require('../../assets/messages.js');
+const { STATS } = require('../../assets/messages.js');
 const { sendMessage } = require('../../utils/command.js');
 
 module.exports = {
     type: InteractionType.APPLICATION_COMMAND,
     data: {
         type: CommandType.CHAT_INPUT,
-        name: `ping`,
-        description: `Shows the bot's ping.`,
+        name: `stats`,
+        description: `Shows the bot's stats.`,
         options: [],
     },
 
@@ -40,7 +40,7 @@ module.exports = {
      * @returns {Promise}
      */
 	async run(source, user) {
-        const embed = PING(user.tag, user.avatarURL(), source.createdTimestamp);
+        const embed = await STATS(user.tag, user.avatarURL(), source.createdTimestamp);
 
 		return sendMessage(source, { embeds: [embed] });
 	}

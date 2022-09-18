@@ -8,10 +8,10 @@ module.exports = (client) => {
     for (const file of interactions) {
         const interaction = require(file);
 
-        const { type, name, id } = interaction;
+        const { type, data } = interaction;
         if (!type) return;
 
-        const identifier = name || id;
+        const identifier = data.name || data.id;
         (client.interactions[type] ??= new Collection()).set(identifier, interaction);
     }
 };
