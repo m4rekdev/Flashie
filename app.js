@@ -38,9 +38,7 @@ client.wait = (time) => new Promise(resolve => setTimeout(resolve, time));
 client.interactions = {};
 const { readdirSync } = require('fs');
 const names = readdirSync('./handlers/').filter(file => file.endsWith('.js'));
-names.forEach(name => {
-    require(`./handlers/${name}`)(client);
-});
+names.forEach(name => require(`./handlers/${name}`)(client));
 
 client.login(client.discordToken);
 
