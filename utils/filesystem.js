@@ -1,7 +1,7 @@
 const path = require('path');
 const { readdirSync, statSync } = require('fs');
 
-function walk(dir) {
+const walk = (dir) => {
     const results = [];
 
     readdirSync(dir).forEach(dirItem => {
