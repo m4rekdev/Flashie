@@ -57,29 +57,35 @@ module.exports = {
                     name: 'Action',
                     value: `${actionName} (${actionType})`,
                 },
-            )
-            .setTimestamp(),
+            ),
+
+    STATS_RECORDING: 'While the statistics are initializing, please wait.',
 
     /**
      * 
-     * @param {number} totalLatency The total latency of the action
-     * @param {number} discordLatency Discord latency
-     * @param {number} wsLatency Websocket latency
-     * @param {number} uptime Bot's uptime
+     * @param {object} bot Object with bot details
+     * @param {object} latency Object with latency details
+     * @param {object} server Object with server details
      * @returns {object} Discord Embed object
      */
-    STATS: (totalLatency, discordLatency, wsLatency, uptime) =>
+    STATS: (bot = { discordJsVersion, uptime }, latency = { total, discord, websocket }, server = { cpu: { cores, model, speed }, memory: { total, usage }}) =>
         new EmbedBuilder()
             .setColor(client.accentColor)
-            .setTitle('Stats')
-            .setDescription(`🏓 **Ping**
-            > Total Latency: ${totalLatency}ms
-            > Discord Latency: ${discordLatency}ms
-            > WS Latency: ${wsLatency}ms
+            .addFields([
+                {
+                    name: 'Bot statistics',
+                    value: `\`\`\`asciidoc\nFramework :: Discord.JS ${bot.discordJsVersion}\nUptime :: ${bot.uptime}\nGuilds :: ${bot.guilds} guilds\nUsers :: ${bot.users} users\`\`\``,
+                },
+                {
+                    name: 'Latency details',
+                    value: `\`\`\`asciidoc\nTotal latency :: ${Object.values(latency).reduce((accumulator, value) => accumulator + value, 0)}ms\nDiscord latency :: ${latency.discord}ms\nWebSocket latency :: ${latency.websocket}ms\`\`\``,
+                },
+                {
+                    name: 'Server statistics',
+                    value: `\`\`\`asciidoc\nCPU :: ${server.cpu.cores}x ${server.cpu.model}${server.cpu.speed}\nMemory :: ${server.memory.used}/${server.memory.total}MB (${server.memory.usage}%)\n\`\`\``,
+                },
+            ]),
 
-            🕛 __Uptime__ 🕛
-            > ${uptime}`)
-            .setTimestamp(),
     /**
      * 
      * @param {number} totalLatency The total latency of the action

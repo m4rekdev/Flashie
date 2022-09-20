@@ -1,7 +1,8 @@
-const { AutocompleteInteraction, CommandInteraction, Message } = require('discord.js');
+const { AutocompleteInteraction, CommandInteraction, Message, version: discordJsVersion, Client } = require('discord.js');
+const { totalmem, cpus, freemem } = require('os');
 const ms = require('ms');
 const { InteractionType, CommandType } = require('../../assets/enums.js');
-const { STATS } = require('../../assets/messages.js');
+const { STATS, STATS_RECORDING } = require('../../assets/messages.js');
 const { sendMessage } = require('../../utils/command.js');
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
     data: {
         type: CommandType.CHAT_INPUT,
         name: `stats`,
-        description: `Shows the bot's stats.`,
+        description: `Responds with the bot's statistics.`,
         options: [],
     },
 
@@ -45,18 +46,40 @@ module.exports = {
      * @returns {Promise}
      */
 	async run(source, client) {
-        const botMessage = await sendMessage(source, { content: `Ping?` });
+        const botMessage = await sendMessage(source, { content: STATS_RECORDING });
 
-        const uptime = ms(client.uptime);
+        //* Bot statistics
+        const botStatistics = {
+            uptime: ms(client.uptime, { long: true }),
+            discordJsVersion,
+            guilds: client.guilds.cache.size,
+            users: client.guilds.cache.reduce((accumulator, { members }) => accumulator + members.cache.size, 0),
+        };
+        
+        //* Latency details
         const wsPing = Math.round(client.ws.ping);
         const cfPing = 2;
 		const roundTrip = (botMessage.editedTimestamp || botMessage.createdTimestamp) - (source.editedTimestamp || source.createdTimestamp);
-        
-		const discordLatency = roundTrip - wsPing > 0 ? roundTrip - wsPing - cfPing : roundTrip - cfPing;
-		const wsLatency = wsPing - cfPing;
-		const totalLatency = discordLatency + wsLatency;
+        const latencyDetails = {
+            discord: roundTrip - wsPing > 0 ? roundTrip - wsPing - cfPing : roundTrip - cfPing,
+            websocket: wsPing - cfPing,
+        };
 
-        const embed = await STATS(totalLatency, discordLatency, wsLatency, uptime);
-		return sendMessage(botMessage, { embeds: [embed] });
+        //* Server details
+        const serverStatistics = {
+            cpu: {
+                cores: cpus().length,
+                model: cpus()[0].model.trim(),
+                speed: cpus()[0].model.includes('@') ? '' : ` @ ${(cpus()[0].speed / 1000).toFixed(2)}GHz`,
+            },
+            memory: {
+                used: ((totalmem() - freemem()) / 1024 / 1024).toFixed(0),
+                total: (totalmem() / 1024 / 1024).toFixed(0),
+                usage: (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
+            },
+        };
+
+        const embed = await STATS(botStatistics, latencyDetails, serverStatistics);
+		return sendMessage(botMessage, { content: '', embeds: [embed] });
 	}
 };
