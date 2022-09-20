@@ -75,7 +75,7 @@ module.exports = {
             memory: {
                 used: ((totalmem() - freemem()) / 1024 / 1024).toFixed(0),
                 total: (totalmem() / 1024 / 1024).toFixed(0),
-                usage: (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
+                usage: ((totalmem() - freemem()) / totalmem() * 100).toFixed(0),
             },
         };
 
