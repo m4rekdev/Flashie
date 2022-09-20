@@ -88,13 +88,30 @@ module.exports = {
 
     /**
      * 
-     * @param {number} totalLatency The total latency of the action
-     * @param {number} discordLatency Discord latency
-     * @param {number} wsLatency Websocket latency
-     * @param {number} uptime Bot's uptime
+     * @param {string} attachmentName Attachment name
+     * @param {string} platform Platform name
+     * @param {string} target Target name
      * @returns {object} Discord Embed object
      */
     COZY: (attachmentName, platform, target) =>
+        new EmbedBuilder()
+            .setColor(client.accentColor)
+            .setTitle('Cozy')
+            .setDescription(`You're looking cozy today! ${Emoji.KITTY_COMFY}`)
+            .addFields(
+                { name: 'Platform', value: platform, inline: true },
+                { name: 'Target', value: target, inline: true },
+            )
+            .setImage(`attachment://${attachmentName}`),
+
+    /**
+     * 
+     * @param {string} attachmentName Attachment name
+     * @param {string} platform Platform name
+     * @param {string} target Target name
+     * @returns {object} Discord Embed object
+     */
+    HELP: (attachmentName, platform, target) =>
         new EmbedBuilder()
             .setColor(client.accentColor)
             .setTitle('Cozy')
