@@ -1,7 +1,7 @@
 const { AutocompleteInteraction, CommandInteraction, Message, version: discordJsVersion, Client } = require('discord.js');
 const { totalmem, cpus, freemem } = require('os');
 const ms = require('ms');
-const { InteractionType, CommandType } = require('../../assets/enums.js');
+const { InteractionType, CommandType, Categories } = require('../../assets/enums.js');
 const { STATS, STATS_RECORDING } = require('../../assets/messages.js');
 const { sendMessage } = require('../../utils/command.js');
 
@@ -13,6 +13,8 @@ module.exports = {
         description: `Responds with the bot's statistics.`,
         options: [],
     },
+
+    category: Categories.General,
 
     /**
      * @param {AutocompleteInteraction} interaction 
