@@ -7,19 +7,19 @@ const platforms = require('../../utils/platforms.js');
 const { COZY, NO_RESULTS } = require('../../assets/messages.js');
 
 module.exports = {
-    type: InteractionType.APPLICATION_COMMAND,
+    type: InteractionType.ApplicationCommand,
     data: {
-        type: CommandType.CHAT_INPUT,
+        type: CommandType.ChatInput,
         name: `cozy`,
         description: `Get cozy avatar from popular social platforms.`,
         options: [
             {
-                type: OptionType.SUB_COMMAND,
+                type: OptionType.Subcommand,
                 name: `minecraft`,
                 description: `Get cozy avatar from a Minecraft player.`,
                 options: [
                     {
-                        type: OptionType.STRING,
+                        type: OptionType.String,
                         name: `search`,
                         description: `The value to search for.`,
                         required: true
@@ -27,12 +27,12 @@ module.exports = {
                 ]
             },
             {
-                type: OptionType.SUB_COMMAND,
+                type: OptionType.Subcommand,
                 name: `discord`,
                 description: `Get cozy avatar from a Discord user (current server only).`,
                 options: [
                     {
-                        type: OptionType.USER,
+                        type: OptionType.User,
                         name: `search`,
                         description: `The value to search for.`,
                         required: true

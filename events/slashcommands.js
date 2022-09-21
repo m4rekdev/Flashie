@@ -17,7 +17,7 @@ module.exports = {
         const { client, user, commandName, guildId } = interaction;
         if (user.bot) return;
 
-        const command = client.interactions[InteractionType.APPLICATION_COMMAND].find(command => command.data.name == commandName);
+        const command = client.interactions[InteractionType.ApplicationCommand].find(command => command.data.name == commandName);
         if (!command) return;
 
         try {

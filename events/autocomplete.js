@@ -12,7 +12,7 @@ module.exports = {
 
         const { client, commandName } = interaction;
 
-        const command = client.interactions[InteractionType.APPLICATION_COMMAND].get(commandName);
+        const command = client.interactions[InteractionType.ApplicationCommand].get(commandName);
         if (!command) return;
 
         const choices = await command.autocomplete(interaction);

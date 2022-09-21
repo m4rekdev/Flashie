@@ -13,7 +13,7 @@ module.exports = {
         const { client, user, customId } = interaction;
         if (user.bot) return;
 
-        const button = client.interactions[InteractionType.BUTTON].find(button => button.data.id == customId);
+        const button = client.interactions[InteractionType.Button].find(button => button.data.id == customId);
         if (!button) return;
 
         try {

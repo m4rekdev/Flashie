@@ -6,9 +6,9 @@ const { STATS, STATS_RECORDING } = require('../../assets/messages.js');
 const { sendMessage } = require('../../utils/command.js');
 
 module.exports = {
-    type: InteractionType.APPLICATION_COMMAND,
+    type: InteractionType.ApplicationCommand,
     data: {
-        type: CommandType.CHAT_INPUT,
+        type: CommandType.ChatInput,
         name: `stats`,
         description: `Responds with the bot's statistics.`,
         options: [],

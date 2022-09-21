@@ -23,7 +23,7 @@ module.exports = {
         const arguments = content.replace(prefixRegex, '').trim().split(/ +/g);
         const commandName = arguments.shift().toLowerCase() || 'help';
         
-        const command = client.interactions[InteractionType.APPLICATION_COMMAND].find(command => command.data.name == commandName);
+        const command = client.interactions[InteractionType.ApplicationCommand].find(command => command.data.name == commandName);
         if (!command) return;
 
         try {

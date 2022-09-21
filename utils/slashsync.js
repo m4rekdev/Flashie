@@ -6,7 +6,7 @@ const { log } = require('./logger.js');
  * @param {Client} client 
  */
 module.exports = (client) => new Promise((resolve, reject) => {
-    const commands = client.interactions[InteractionType.APPLICATION_COMMAND].map(({ data }) => {
+    const commands = client.interactions[InteractionType.ApplicationCommand].map(({ data }) => {
         let { name, description, type, options } = data;
         description = description.split('\n')[0].substring(0, 100);
 
