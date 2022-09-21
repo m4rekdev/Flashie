@@ -1,6 +1,6 @@
 const client = require('../app.js');
 const { EmbedBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { Emoji } = require('./enums.js');
+const { Emoji, Categories } = require('./enums.js');
 
 module.exports = {
     GUILD_ONLY: new EmbedBuilder()
@@ -103,4 +103,15 @@ module.exports = {
                 { name: 'Target', value: target, inline: true },
             )
             .setImage(`attachment://${attachmentName}`),
+    
+    /**
+     * 
+     * @param {object} commands Object of commands divided into categories
+     * @returns {object} Discord Embed object
+     */
+    HELP: (commands) =>
+        new EmbedBuilder()
+            .setColor(client.accentColor)
+            .setTitle('Help')
+            .addFields(Object.entries(commands).map(([ category, commands ]) => ({ name: Categories[category], value: commands.map(command => `\`${command}\``).join(', ') }))),
 };
