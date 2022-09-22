@@ -70,6 +70,8 @@ module.exports = {
     async runMessage(message, arguments) {
         const [ platform, target ] = arguments;
 
+        //? TODO: Check for missing variables by user
+        
         return await this.run(message, platform, target);
     },
 
