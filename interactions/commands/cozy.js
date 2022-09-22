@@ -1,6 +1,6 @@
 const { AutocompleteInteraction, CommandInteraction, Message, AttachmentBuilder } = require('discord.js');
 const Canvas = require('canvas');
-const { InteractionType, CommandType, OptionType, Platforms, Categories } = require('../../assets/constants.js');
+const { InteractionType, CommandType, OptionType, Platform, Categories } = require('../../assets/constants.js');
 const { sendMessage } = require('../../utils/command.js');
 const { roundImage } = require('../../utils/imagetransformation.js');
 const platforms = require('../../utils/platforms.js');
@@ -102,7 +102,7 @@ module.exports = {
 
             const attachmentName = 'cozy.png';
             const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: attachmentName });
-            const embed = COZY(attachmentName, Platforms[platform], name);
+            const embed = COZY(attachmentName, Platform[platform], name);
 
             return sendMessage(source, { embeds: [embed], files: [attachment] });
         }).catch(error => new Promise((resolve, reject) => {
