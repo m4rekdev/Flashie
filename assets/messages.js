@@ -114,4 +114,19 @@ module.exports = {
             .setColor(client.accentColor)
             .setTitle('Help')
             .addFields(Object.entries(commands).map(([ category, commands ]) => ({ name: Categories[category], value: commands.map(command => `\`${command}\``).join(', ') }))),
+
+    /**
+     * 
+     * @param {string} pronouns
+     * @returns {object} Discord Embed object
+     */
+    PRONOUNS: (pronouns, user) =>
+        new EmbedBuilder()
+            .setColor(client.accentColor)
+            .setTitle('Pronouns')
+            .setThumbnail(user.avatar)
+            .setDescription(`**${user.name}'s** pronouns are \`${pronouns}\``)
+            .setFooter({
+                text: 'Using pronoundb.org',
+            }),
 };
