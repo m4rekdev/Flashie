@@ -1,4 +1,5 @@
 const { Message, CommandInteraction, ButtonInteraction } = require('discord.js');
+const client = require('../app');
 
 /**
  * @returns {boolean}
@@ -37,5 +38,15 @@ module.exports = {
             );
 
         return reject(Error('Provided source is not supported!'));
+    }),
+
+    /**
+     * @param {import('discord.js').UserMention | import('discord.js').Snowflake} userId
+     */
+    fetchUser: (userId) => new Promise((resolve, reject) => {
+        if (!userId) reject('Invalid user ID');
+        userId = userId.match(/\d+/g).join('');
+
+        resolve(client.users.fetch(userId));
     }),
 };
