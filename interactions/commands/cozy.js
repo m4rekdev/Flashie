@@ -11,17 +11,17 @@ module.exports = {
     data: {
         type: CommandType.ChatInput,
         name: `cozy`,
-        description: `Get cozy avatar from popular social platforms.`,
+        description: `Generate a cozy avatar from Minecraft and Discord (current server only).`,
         options: [
             {
                 type: OptionType.Subcommand,
                 name: `minecraft`,
-                description: `Get cozy avatar from a Minecraft player.`,
+                description: `Generate a cozy avatar from a Minecraft player's head.`,
                 options: [
                     {
                         type: OptionType.String,
-                        name: `search`,
-                        description: `The value to search for.`,
+                        name: `value`,
+                        description: `The player name to search for.`,
                         required: true
                     }
                 ]
@@ -29,12 +29,12 @@ module.exports = {
             {
                 type: OptionType.Subcommand,
                 name: `discord`,
-                description: `Get cozy avatar from a Discord user (current server only).`,
+                description: `Generate a cozy avatar from a Discord user's avatar (current server only).`,
                 options: [
                     {
                         type: OptionType.User,
-                        name: `search`,
-                        description: `The value to search for.`,
+                        name: `value`,
+                        description: `The Discord user.`,
                         required: true
                     }
                 ]
@@ -56,8 +56,8 @@ module.exports = {
      * @param {CommandInteraction} interaction 
      */
     async runInteraction(interaction) {
-        const platform = interaction.options.getSubcommand();
-        const { value, user } = interaction.options.get('search');
+        const platform = interaction.options.getSubcommand();        
+        const { value, user } = interaction.options.get('value');
 
         await interaction.deferReply();
         return await this.run(interaction, platform, (user || value));
