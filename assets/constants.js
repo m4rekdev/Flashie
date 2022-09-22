@@ -52,7 +52,10 @@ module.exports = {
         any: 'any pronouns',
         other: 'other pronouns',
         ask: 'ask for pronouns',
-        avoid: 'avoid pronouns, use name'
+        avoid: 'avoid pronouns, use name',
+        unspecified: 'Unspecified'
     },
-    
+    Url: {
+        PronounDB: 'https://pronoundb.org/api/v1/lookup',
+    },
 };
