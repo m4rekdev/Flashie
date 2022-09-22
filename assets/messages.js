@@ -1,6 +1,6 @@
 const client = require('../app.js');
 const { EmbedBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { Emoji, Categories } = require('./enums.js');
+const { Emoji, Categories } = require('./constants.js');
 
 module.exports = {
     GUILD_ONLY: new EmbedBuilder()

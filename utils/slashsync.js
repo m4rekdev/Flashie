@@ -1,5 +1,5 @@
 const { Client } = require('discord.js');
-const { InteractionType } = require('../assets/enums');
+const { InteractionType } = require('../assets/constants');
 const { log } = require('./logger.js');
 
 /**

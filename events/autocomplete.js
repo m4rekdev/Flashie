@@ -1,5 +1,5 @@
 const { AutocompleteInteraction } = require('discord.js');
-const { InteractionType } = require('../assets/enums.js');
+const { InteractionType } = require('../assets/constants.js');
 
 module.exports = {
     name: 'interactionCreate',

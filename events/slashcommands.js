@@ -1,5 +1,5 @@
 const { CommandInteraction, ActionRowBuilder } = require('discord.js');
-const { InteractionType } = require('../assets/enums.js');
+const { InteractionType } = require('../assets/constants.js');
 const { GUILD_ONLY } = require('../assets/messages.js');
 const reportError = require('../utils/errorReporting.js');
 const { log } = require('../utils/logger.js');

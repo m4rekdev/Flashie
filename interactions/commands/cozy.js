@@ -1,6 +1,6 @@
 const { AutocompleteInteraction, CommandInteraction, Message, AttachmentBuilder } = require('discord.js');
 const Canvas = require('canvas');
-const { InteractionType, CommandType, OptionType, Platforms, Categories } = require('../../assets/enums.js');
+const { InteractionType, CommandType, OptionType, Platforms, Categories } = require('../../assets/constants.js');
 const { sendMessage } = require('../../utils/command.js');
 const { roundImage } = require('../../utils/imagetransformation.js');
 const platforms = require('../../utils/platforms.js');
