@@ -33,7 +33,7 @@ module.exports = {
                 options: [
                     {
                         type: OptionType.User,
-                        name: `user`,
+                        name: `value`,
                         description: `The Discord user.`,
                         required: true
                     }
