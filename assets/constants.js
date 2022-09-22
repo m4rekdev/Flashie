@@ -21,7 +21,7 @@ module.exports = {
         Number: 10,
         Attachment: 11,
     },
-    Platforms: {
+    Platform: {
         discord: 'Discord',
         minecraft: 'Minecraft',
     },
