@@ -20,7 +20,7 @@ module.exports = {
                 options: [
                     {
                         type: OptionType.String,
-                        name: `playerName`,
+                        name: `value`,
                         description: `The player name to search for.`,
                         required: true
                     }
@@ -33,7 +33,7 @@ module.exports = {
                 options: [
                     {
                         type: OptionType.User,
-                        name: `user`,
+                        name: `value`,
                         description: `The Discord user.`,
                         required: true
                     }
@@ -56,10 +56,8 @@ module.exports = {
      * @param {CommandInteraction} interaction 
      */
     async runInteraction(interaction) {
-        const platform = interaction.options.getSubcommand();
-        
-        const { value } = interaction.options.get('playerName');
-        const { user } = interaction.options.get('user');
+        const platform = interaction.options.getSubcommand();        
+        const { value, user } = interaction.options.get('value');
 
         await interaction.deferReply();
         return await this.run(interaction, platform, (user || value));
