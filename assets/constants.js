@@ -32,4 +32,27 @@ module.exports = {
         General: 'General',
         Fun: 'Fun',
     },
+    Pronouns: {
+        hh: 'he/him',
+        hi: 'he/it',
+        hs: 'he/she',
+        ht: 'he/they',
+        ih: 'it/him',
+        ii: 'it/its',
+        is: 'it/she',
+        it: 'it/they',
+        shh: 'she/he',
+        sh: 'she/her',
+        si: 'she/it',
+        st: 'she/they',
+        th: 'they/he',
+        ti: 'they/it',
+        ts: 'they/she',
+        tt: 'they/them',
+        any: 'any pronouns',
+        other: 'other pronouns',
+        ask: 'ask for pronouns',
+        avoid: 'avoid pronouns, use name'
+    },
+    
 };
