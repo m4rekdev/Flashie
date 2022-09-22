@@ -20,7 +20,7 @@ module.exports = {
                 options: [
                     {
                         type: OptionType.String,
-                        name: `playerName`,
+                        name: `player_name`,
                         description: `The player name to search for.`,
                         required: true
                     }
@@ -57,7 +57,7 @@ module.exports = {
      */
     async runInteraction(interaction) {
         const platform = interaction.options.getSubcommand();
-        
+
         const { value } = interaction.options.get('playerName');
         const { user } = interaction.options.get('user');
 
@@ -73,6 +73,8 @@ module.exports = {
         const [ platform, target ] = arguments;
 
         //? TODO: Check for missing variables by user
+        if (!platforms?.[platform]) return message.reply("bad platform");
+        if (!target) return message.reply("no target");
         
         return await this.run(message, platform, target);
     },
