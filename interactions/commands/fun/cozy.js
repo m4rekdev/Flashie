@@ -55,21 +55,13 @@ module.exports = {
     /**
      * @param {CommandInteraction} interaction 
      */
-    async runInteraction(interaction) {
+    async slashcommand(interaction) {
         const platform = interaction.options.getSubcommand();
-
         const { user, value } = interaction.options.get('value');
+        const target = user || value;
 
         await interaction.deferReply();
-        return await this.run(interaction, platform, (user || value));
-    },
-    
-    /**
-     * @param {CommandInteraction | Message} source 
-     * @param {User} user 
-     * @returns {Promise}
-     */
-	async run(source, platform, target) {
+
         await platforms[platform](target).then(async ({ name, avatar: fetchedAvatar }) => {
             const canvas = Canvas.createCanvas(256, 256);
             const context = canvas.getContext('2d');
@@ -88,7 +80,7 @@ module.exports = {
             const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: attachmentName });
             const embed = COZY(attachmentName, Platform[platform], name);
 
-            return sendMessage(source, { embeds: [embed], files: [attachment] });
+            return sendMessage(interaction, { embeds: [embed], files: [attachment] });
         }).catch(error => new Promise((resolve, reject) => {
             switch (error.message) {                
                 default:
@@ -99,7 +91,7 @@ module.exports = {
                     break;
             }
 
-            resolve(sendMessage(source, response));
+            resolve(sendMessage(interaction, response));
         }));
-	}
+    },
 };
