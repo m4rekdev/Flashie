@@ -1,9 +1,9 @@
 const { AutocompleteInteraction, CommandInteraction, version: discordJsVersion, Client } = require('discord.js');
 const { totalmem, cpus, freemem } = require('os');
 const ms = require('ms');
-const { InteractionType, CommandType, Categories } = require('../../assets/constants.js');
-const { STATS, STATS_RECORDING } = require('../../assets/messages.js');
-const { sendMessage } = require('../../utils/command.js');
+const { InteractionType, CommandType, Categories } = require('../../../assets/constants.js');
+const { STATS, STATS_RECORDING } = require('../../../assets/messages.js');
+const { sendMessage } = require('../../../utils/command.js');
 
 module.exports = {
     type: InteractionType.ApplicationCommand,

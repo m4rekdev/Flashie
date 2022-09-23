@@ -1,10 +1,10 @@
 const { AutocompleteInteraction, CommandInteraction, Message, AttachmentBuilder } = require('discord.js');
 const Canvas = require('canvas');
-const { InteractionType, CommandType, OptionType, Platform, Categories } = require('../../assets/constants.js');
-const { sendMessage } = require('../../utils/command.js');
-const { roundImage } = require('../../utils/imagetransformation.js');
-const platforms = require('../../utils/platforms.js');
-const { COZY, NO_RESULTS } = require('../../assets/messages.js');
+const { InteractionType, CommandType, OptionType, Platform, Categories } = require('../../../assets/constants.js');
+const { sendMessage } = require('../../../utils/command.js');
+const { roundImage } = require('../../../utils/imagetransformation.js');
+const platforms = require('../../../utils/platforms.js');
+const { COZY, NO_RESULTS } = require('../../../assets/messages.js');
 
 module.exports = {
     type: InteractionType.ApplicationCommand,

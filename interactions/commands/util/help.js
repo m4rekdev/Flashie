@@ -1,7 +1,7 @@
 const { AutocompleteInteraction, CommandInteraction } = require('discord.js');
-const { InteractionType, CommandType, Categories } = require('../../assets/constants.js');
-const { HELP } = require('../../assets/messages.js');
-const { sendMessage } = require('../../utils/command.js');
+const { InteractionType, CommandType, Categories } = require('../../../assets/constants.js');
+const { HELP } = require('../../../assets/messages.js');
+const { sendMessage } = require('../../../utils/command.js');
 
 module.exports = {
     type: InteractionType.ApplicationCommand,
