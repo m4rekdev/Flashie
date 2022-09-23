@@ -20,7 +20,7 @@ module.exports = {
                 options: [
                     {
                         type: OptionType.String,
-                        name: `value`,
+                        name: `player_name`,
                         description: `The player name to search for.`,
                         required: true
                     }
@@ -33,7 +33,7 @@ module.exports = {
                 options: [
                     {
                         type: OptionType.User,
-                        name: `value`,
+                        name: `user`,
                         description: `The Discord user.`,
                         required: true
                     }
@@ -57,8 +57,7 @@ module.exports = {
      */
     async slashcommand(interaction) {
         const platform = interaction.options.getSubcommand();
-        const { user, value } = interaction.options.get('value');
-        const target = user || value;
+        const target = interaction.options.getString('player_name') ?? interaction.options.getUser('user');
 
         await interaction.deferReply();
 
