@@ -1,8 +1,6 @@
+const { DiscordToken, ApiServer } = require('./config.js');
 const { start, log } = require('./utils/logger.js');
 start('App', 'Connecting to WebSocket..', 'blue');
-
-//* Importing Config
-const config = require('./config.js');
 
 const { Client, GatewayIntentBits, Partials } = require('discord.js');
 const client = new Client({
@@ -28,9 +26,6 @@ const client = new Client({
 
 module.exports = client;
 
-//* Importing Config into the client
-Object.keys(config).forEach(async (key) => client[key] = config[key]);
-
 //* Creating Wait Function
 client.wait = (time) => new Promise(resolve => setTimeout(resolve, time));
 
@@ -38,11 +33,9 @@ client.wait = (time) => new Promise(resolve => setTimeout(resolve, time));
 client.interactions = {};
 const { readdirSync } = require('fs');
 const names = readdirSync('./handlers/').filter(file => file.endsWith('.js'));
-names.forEach(name => {
-    require(`./handlers/${name}`)(client);
-});
+names.forEach(name => require(`./handlers/${name}`)(client));
 
-client.login(client.discordToken);
+client.login(DiscordToken);
 
 //* Web server
 const express = require('express');
@@ -81,10 +74,10 @@ app.get('*', (req, res) => {
     });
 });
 
-app.listen(client.serverPort, (error) => {
+app.listen(ApiServer.Port, (error) => {
     if (error) log('API', JSON.stringify(error), 'red');
 
-    log('API', `Listening to http://localhost:${client.serverPort}`, 'green');
+    log('API', `Listening to http://localhost:${ApiServer.Port}`, 'green');
 });
 
 process.on('uncaughtException', (error) => log('Uncaught Error', error.stack, 'red'))

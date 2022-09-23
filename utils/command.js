@@ -1,5 +1,5 @@
 const { Message, CommandInteraction, ButtonInteraction } = require('discord.js');
-const client = require('../app.js');
+const client = require('../app');
 
 /**
  * @returns {boolean}
@@ -9,7 +9,9 @@ const isMessage = (source) => source instanceof Message;
 /**
  * @returns {boolean}
  */
-const isInteraction = (source) => source instanceof CommandInteraction || source instanceof ButtonInteraction;
+const isInteraction = (source) => 
+    source instanceof CommandInteraction
+    || source instanceof ButtonInteraction;
 
 module.exports = {
     /**
@@ -18,7 +20,9 @@ module.exports = {
      * @param {object} options 
      * @returns {Promise<Message | undefined>}
      */
-    sendMessage: (source, response, options = { edit: true, reply: false }) => new Promise((resolve, reject) => {
+    sendMessage: (source, response, options = { edit: true, reply: false, fetch: true }) => new Promise((resolve, reject) => {
+        if (options.fetch) response.fetchReply = true;
+
         if (isMessage(source)) 
             return resolve(
                 options.edit && source.editable 
@@ -28,11 +32,21 @@ module.exports = {
         
         if (isInteraction(source)) 
             return resolve(
-                options.reply || !source.replied
+                options.reply || !source.replied && !source.deferred
                 ? source.reply(response)
                 : (options.edit ? source.editReply(response) : source.followUp(response)) 
             );
 
         return reject(Error('Provided source is not supported!'));
+    }),
+
+    /**
+     * @param {import('discord.js').UserMention | import('discord.js').Snowflake} userId
+     */
+    fetchUser: (userId) => new Promise((resolve, reject) => {
+        if (!userId) reject('Invalid user ID');
+        userId = userId.match(/\d+/g).join('');
+
+        resolve(client.users.fetch(userId));
     }),
 };

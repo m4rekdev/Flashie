@@ -1,12 +1,13 @@
 const { Client } = require('discord.js');
-const { InteractionType } = require('../assets/enums');
+const { InteractionType } = require('../assets/constants');
+const { TestGuildId } = require('../config');
 const { log } = require('./logger.js');
 
 /**
  * @param {Client} client 
  */
 module.exports = (client) => new Promise((resolve, reject) => {
-    const commands = client.interactions[InteractionType.APPLICATION_COMMAND].map(({ data }) => {
+    const commands = client.interactions[InteractionType.ApplicationCommand].map(({ data }) => {
         let { name, description, type, options } = data;
         description = description.split('\n')[0].substring(0, 100);
 
@@ -15,7 +16,7 @@ module.exports = (client) => new Promise((resolve, reject) => {
 
     try {
         client.application.commands.set(commands);
-        client.application.commands.set(commands, client.testGuildId);
+        client.application.commands.set(commands, TestGuildId);
 
         log('Discord', 'Successfully refreshed application commands!', 'blue');
         resolve(commands);

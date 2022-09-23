@@ -1,5 +1,5 @@
 const { CommandInteraction, ActionRowBuilder } = require('discord.js');
-const { InteractionType } = require('../assets/enums.js');
+const { InteractionType } = require('../assets/constants.js');
 const { GUILD_ONLY } = require('../assets/messages.js');
 const reportError = require('../utils/errorReporting.js');
 const { log } = require('../utils/logger.js');
@@ -17,7 +17,7 @@ module.exports = {
         const { client, user, commandName, guildId } = interaction;
         if (user.bot) return;
 
-        const command = client.interactions[InteractionType.APPLICATION_COMMAND].find(command => command.data.name == commandName);
+        const command = client.interactions[InteractionType.ApplicationCommand].find(command => command.data.name == commandName);
         if (!command) return;
 
         try {
@@ -25,7 +25,7 @@ module.exports = {
 
             if (command.guildOnly && !guildId) return sendMessage(interaction, { embeds: [GUILD_ONLY] });
 
-            return await command.runInteraction(interaction);
+            return await command.slashcommand(interaction);
         } catch (error) {
             const { embed, button } = await reportError(user, error, { type: 'Interaction Command', name: commandName });
             const row = new ActionRowBuilder().addComponents(button);

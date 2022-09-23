@@ -1,5 +1,5 @@
 const { AutocompleteInteraction } = require('discord.js');
-const { InteractionType } = require('../assets/enums.js');
+const { InteractionType } = require('../assets/constants.js');
 
 module.exports = {
     name: 'interactionCreate',
@@ -12,7 +12,7 @@ module.exports = {
 
         const { client, commandName } = interaction;
 
-        const command = client.interactions[InteractionType.APPLICATION_COMMAND].get(commandName);
+        const command = client.interactions[InteractionType.ApplicationCommand].get(commandName);
         if (!command) return;
 
         const choices = await command.autocomplete(interaction);

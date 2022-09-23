@@ -1,26 +1,38 @@
-module.exports = {
-    developerId: `DEVELOPER_ID`,
-    testGuildId: `TEST_GUILD_ID`,
-    prefix: `?`,
-    
-    presenceStatus: `online`,
-    presenceType: 1,
-    presenceName: `with goodbyepavlyi`,
-    
-    baseUrl: `https://goodbyepavlyi.eu`,
-    repositoryUrl: `https://github.com/goodbyepavlyi/discordjs-bot-template`,
+const { ActivityType } = require('discord.js');
+const { StatusType } = require('./assets/constants');
 
-    supportServerId: `SUPPORT_SERVER_ID`,
-    supportServerInvite: `https://discord.gg/xxx`,
-    supportServerChannels: {
-        botErrors: `BOT_ERROR_ID`,
+module.exports = {
+    DeveloperId: `DEVELOPER_ID`,
+    TestGuildId: `TEST_GUILD_ID`,
+    Prefix: `!`,
+    
+    Presence: {
+        Status: StatusType.Online,
+        Type: ActivityType.Playing,
+        Name: 'Activity Name',
+    },
+    
+    BaseUrl: {
+        Base: 'BASE_URL',
+        BotInvite: `/invite`,
+    },
+    RepositoryUrl: `REPOSITORY_URL`,
+
+    SupportServer: {
+        Id: 'ID',
+        Invite: 'DISCORD_LINK',
+        Channels: {
+            ErrorReports: `ERROR_REPORTS`,
+        },
     },
 
-    serverPort: `3000`,
-    serverToken: `SECURE_TOKEN`,
+    ApiServer: {
+        Port: '3000',
+        Token: '',
+    },
     
-    accentColor: `#fff`,
+    AccentColor: `#ffffff`,
 
-    discordToken: `DISCORD_TOKEN`,
-    topggToken: `TOPGG_TOKEN`,
+    DiscordToken: `DISCORD_TOKEN`,
+    TopGGToken: `TOPGG_TOKEN`,
 }
