@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const { EmbedBuilder, ButtonBuilder, ButtonStyle, User, Guild } = require('discord.js');
+=======
+const { EmbedBuilder, ButtonBuilder, ButtonStyle, User } = require('discord.js');
+>>>>>>> f09c2c255177e82600772f77829077046f062662
 const { Emoji, Categories } = require('./constants.js');
 const { BaseUrl, RepositoryUrl, AccentColor } = require('../config.js');
 
@@ -171,6 +175,7 @@ module.exports = {
 					`[2048](${user.displayAvatarURL({ size: 2048, dynamic: true })})`
 				].join(' | ')
 			].join('\n')),
+<<<<<<< HEAD
 
     /**
      * 
@@ -204,4 +209,6 @@ module.exports = {
 					`[2048](${guild.iconURL({ size: 2048, dynamic: true })})`
 				].join(' | ')
 			].join('\n')),
+=======
+>>>>>>> f09c2c255177e82600772f77829077046f062662
 };

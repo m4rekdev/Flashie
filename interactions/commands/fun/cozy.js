@@ -20,7 +20,11 @@ module.exports = {
                 options: [
                     {
                         type: OptionType.String,
+<<<<<<< HEAD
                         name: `value`,
+=======
+                        name: `player_name`,
+>>>>>>> f09c2c255177e82600772f77829077046f062662
                         description: `The player name to search for.`,
                         required: true
                     }
@@ -33,7 +37,11 @@ module.exports = {
                 options: [
                     {
                         type: OptionType.User,
+<<<<<<< HEAD
                         name: `value`,
+=======
+                        name: `user`,
+>>>>>>> f09c2c255177e82600772f77829077046f062662
                         description: `The Discord user.`,
                         required: true
                     }
@@ -57,8 +65,12 @@ module.exports = {
      */
     async slashcommand(interaction) {
         const platform = interaction.options.getSubcommand();
+<<<<<<< HEAD
         const { user, value } = interaction.options.get('value');
         const target = user || value;
+=======
+        const target = interaction.options.getString('player_name') ?? interaction.options.getUser('user');
+>>>>>>> f09c2c255177e82600772f77829077046f062662
 
         await interaction.deferReply();
 
