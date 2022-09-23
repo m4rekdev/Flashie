@@ -1,6 +1,7 @@
 const { Message, ActionRowBuilder } = require('discord.js');
 const { InteractionType } = require('../assets/constants.js');
 const { SLASHCOMMAND_WARNING } = require('../assets/messages.js');
+const { Prefix } = require('../config.js');
 const { sendMessage } = require('../utils/command.js');
 const reportError = require('../utils/errorReporting.js');
 
@@ -15,9 +16,8 @@ module.exports = {
 
         if (user.bot) return;
         
-        const prefixRegex = new RegExp(`^(${client.prefix}|<@!?${client.user.id}>)`);
-        const prefix = content.match(prefixRegex);
-        if (!prefix) return;
+        const prefixRegex = new RegExp(`^(${Prefix}|<@!?${client.user.id}>)`);
+        if (!content.match(prefixRegex)) return;
         
         const arguments = content.replace(prefixRegex, '').trim().split(/ +/g);
         const commandName = arguments.shift().toLowerCase();
