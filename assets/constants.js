@@ -35,7 +35,7 @@ module.exports = {
         KittyComfy: '<:kittycomfy:1021101256284065863>',
     },
     Categories: {
-        General: 'General',
+        Util: 'Util',
         Fun: 'Fun',
     },
     Pronouns: {
