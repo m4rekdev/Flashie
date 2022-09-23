@@ -21,6 +21,12 @@ module.exports = {
         Number: 10,
         Attachment: 11,
     },
+    StatusType: {
+        Online: 'online',
+        Idle: 'idle',
+        DoNotDisturb: 'dnd',
+        Offline: 'invisible',
+    },
     Platform: {
         discord: 'Discord',
         minecraft: 'Minecraft',

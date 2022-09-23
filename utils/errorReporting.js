@@ -2,6 +2,7 @@ const { User, Message, EmbedBuilder } = require('discord.js');
 const client = require('../app.js');
 const { log } = require('./logger.js');
 const { ERROR_USER, ERROR_REPORT } = require('../assets/messages.js');
+const { SupportServer } = require('../config.js');
 
 /**
  * @param {User} executor The executor of the action
@@ -29,7 +30,7 @@ function userReport(executor, error, action) {
  */
 function serverReport(error, executor, action) {
     return new Promise(async (resolve, reject) => {
-        const channelId = client.supportServerChannels.botErrors;
+        const channelId = SupportServer.Channels.ErrorReports;
 
         client.channels.fetch(channelId).then(channel => {
             const reportEmbed = ERROR_REPORT(executor.id, executor.tag, executor.avatarURL() || executor.defaultAvatarURL, action.type, action.name);

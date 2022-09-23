@@ -1,5 +1,6 @@
 const { Client } = require('discord.js');
 const { InteractionType } = require('../assets/constants');
+const { TestGuildId } = require('../config');
 const { log } = require('./logger.js');
 
 /**
@@ -15,7 +16,7 @@ module.exports = (client) => new Promise((resolve, reject) => {
 
     try {
         client.application.commands.set(commands);
-        client.application.commands.set(commands, client.testGuildId);
+        client.application.commands.set(commands, TestGuildId);
 
         log('Discord', 'Successfully refreshed application commands!', 'blue');
         resolve(commands);

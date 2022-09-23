@@ -1,12 +1,12 @@
 const { request, response } = require('express');
-const client = require('../../app.js');
+const { ApiServer } = require('../../config.js');
 
 /**
  * @param {request} req 
  * @param {response} res 
  */
 module.exports = (req, res, next) => {
-    const token = client.serverToken;
+    const token = ApiServer.Token;
     const providedToken = req.headers.authorization;
 
     if (token == providedToken) return next();
