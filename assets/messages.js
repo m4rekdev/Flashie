@@ -138,4 +138,37 @@ module.exports = {
             .setFooter({
                 text: 'Using pronoundb.org',
             }),
+    
+    /**
+     * 
+     * @param {User} user
+     * @returns {object} Discord Embed object
+     */
+    AVATAR: (user) =>
+        new EmbedBuilder()
+            .setColor(AccentColor)
+            .setAuthor({
+                name: user.tag,
+                iconURL: user.displayAvatarURL(),
+            })
+            .setImage(user.displayAvatarURL({ size: 2048, dynamic: true }))
+            .setDescription([
+                [
+                    '`Formats`',
+                    `[png](${user.displayAvatarURL({ size: 2048, format: 'png' })})`,
+					`[jpg](${user.displayAvatarURL({ size: 2048, format: 'jpg' })})`,
+					`[webp](${user.displayAvatarURL({ size: 2048, format: 'webp' })})`
+				].join(' | '),
+				[
+                    '`Sizes`',
+					`[16](${user.displayAvatarURL({ size: 16, dynamic: true })})`,
+					`[32](${user.displayAvatarURL({ size: 32, dynamic: true })})`,
+					`[64](${user.displayAvatarURL({ size: 64, dynamic: true })})`,
+					`[128](${user.displayAvatarURL({ size: 128, dynamic: true })})`,
+					`[256](${user.displayAvatarURL({ size: 256, dynamic: true })})`,
+					`[512](${user.displayAvatarURL({ size: 512, dynamic: true })})`,
+					`[1024](${user.displayAvatarURL({ size: 1024, dynamic: true })})`,
+					`[2048](${user.displayAvatarURL({ size: 2048, dynamic: true })})`
+				].join(' | ')
+			].join('\n')),
 };
