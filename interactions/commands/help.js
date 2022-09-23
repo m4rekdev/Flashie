@@ -32,15 +32,6 @@ module.exports = {
     },
     
     /**
-     * @param {Message} message 
-     */
-    async runMessage(message) {
-        const { client } = message;
-
-        return await this.run(message, client);
-    },
-
-    /**
      * @param {CommandInteraction | Message} ; 
      * @param {Client} client 
      * @returns {Promise}

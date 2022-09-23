@@ -40,16 +40,6 @@ module.exports = {
     },
     
     /**
-     * @param {Message} message 
-     */
-    async runMessage(message, arguments) {
-        const [ userId ] = arguments;
-        const user = await fetchUser(userId);
-
-        return await this.run(message, user);
-    },
-
-    /**
      * @param {CommandInteraction | Message} ; 
      * @param {User} user 
      * @returns {Promise}

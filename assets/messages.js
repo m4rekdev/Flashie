@@ -13,6 +13,14 @@ module.exports = {
             .setTitle('Error')
             .setDescription('Couldn\'t find any matches to your search!'),
 
+    SLASHCOMMAND_WARNING: (commandName) =>
+        new EmbedBuilder()
+            .setColor(client.accentColor)
+            .setTitle('You need to use this command as a slash command!')
+            .setDescription(`You can only use this command by using the **Slash Command**. Please use \`/${commandName}\` instead to execute this command. Non-Slash commands will be disappearing as of **October 2022**.\n
+            It is important to note that **all bots** will be **required** to use Slash Commands by **October 2022**.\n
+            Using [this link](${client.baseUrl.base}${client.baseUrl.botInvite}) can help you get the bot invited again if the server you are on doesn't show **Froggie's slash commands**. The bot **doesn't need to be kicked**, it just needs to be **invited again**!`),
+
     /**
      * 
      * @param {number} errorId The Error ID
@@ -103,7 +111,7 @@ module.exports = {
                 { name: 'Target', value: target, inline: true },
             )
             .setImage(`attachment://${attachmentName}`),
-    
+
     /**
      * 
      * @param {object} commands Object of commands divided into categories

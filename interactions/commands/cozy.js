@@ -1,10 +1,10 @@
 const { AutocompleteInteraction, CommandInteraction, Message, AttachmentBuilder } = require('discord.js');
 const Canvas = require('canvas');
 const { InteractionType, CommandType, OptionType, Platform, Categories } = require('../../assets/constants.js');
-const { sendMessage } = require('../../utils/command.js');
+const { sendMessage, fetchUser } = require('../../utils/command.js');
 const { roundImage } = require('../../utils/imagetransformation.js');
 const platforms = require('../../utils/platforms.js');
-const { COZY, NO_RESULTS } = require('../../assets/messages.js');
+const { COZY, NO_RESULTS, INVALID_PLATFORM } = require('../../assets/messages.js');
 
 module.exports = {
     type: InteractionType.ApplicationCommand,
@@ -20,7 +20,7 @@ module.exports = {
                 options: [
                     {
                         type: OptionType.String,
-                        name: `player_name`,
+                        name: `value`,
                         description: `The player name to search for.`,
                         required: true
                     }
@@ -58,28 +58,12 @@ module.exports = {
     async runInteraction(interaction) {
         const platform = interaction.options.getSubcommand();
 
-        const target = 
-            interaction.options.getString('player_name') ??
-            interaction.options.getUser('user');
+        const { user, value } = interaction.options.get('value');
 
         await interaction.deferReply();
-        return await this.run(interaction, platform, target);
+        return await this.run(interaction, platform, (user || value));
     },
     
-    /**
-     * @param {Message} message 
-     * @param {array} arguments 
-     */
-    async runMessage(message, arguments) {
-        const [ platform, target ] = arguments;
-
-        //? TODO: Check for missing variables by user
-        if (!platforms?.[platform]) return message.reply("bad platform");
-        if (!target) return message.reply("no target");
-        
-        return await this.run(message, platform, target);
-    },
-
     /**
      * @param {CommandInteraction | Message} source 
      * @param {User} user 
