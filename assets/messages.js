@@ -1,4 +1,4 @@
-const { EmbedBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { EmbedBuilder, ButtonBuilder, ButtonStyle, User } = require('discord.js');
 const { Emoji, Categories } = require('./constants.js');
 const { BaseUrl, RepositoryUrl, AccentColor } = require('../config.js');
 
@@ -126,6 +126,7 @@ module.exports = {
     /**
      * 
      * @param {string} pronouns
+     * @param {User} user
      * @returns {object} Discord Embed object
      */
     PRONOUNS: (pronouns, user) =>
