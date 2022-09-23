@@ -25,18 +25,9 @@ module.exports = {
     /**
      * @param {CommandInteraction} interaction 
      */
-    async runInteraction(interaction) {
+    async slashcommand(interaction) {
         const { client } = interaction;
 
-        return await this.run(interaction, client);
-    },
-    
-    /**
-     * @param {CommandInteraction | Message} ; 
-     * @param {Client} client 
-     * @returns {Promise}
-     */
-	async run(source, client) {
         const commands = client.interactions[InteractionType.ApplicationCommand].filter(commands => commands.data.type === CommandType.ChatInput);
         const categories = commands.reduce((array, { data, category }) => {
             (array[category] ??= []).push(data.name);
@@ -44,6 +35,6 @@ module.exports = {
         }, {});
 
         const embed = HELP(categories);
-		return sendMessage(source, { embeds: [embed] });
-	}
+		return sendMessage(interaction, { embeds: [embed] });
+    },
 };

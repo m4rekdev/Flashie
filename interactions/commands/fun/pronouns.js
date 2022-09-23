@@ -33,23 +33,14 @@ module.exports = {
     /**
      * @param {CommandInteraction} interaction 
      */
-    async runInteraction(interaction) {
+    async slashcommand(interaction) {
         const user = interaction.options.getUser('user');
 
-        return await this.run(interaction, user);
-    },
-    
-    /**
-     * @param {CommandInteraction | Message} ; 
-     * @param {User} user 
-     * @returns {Promise}
-     */
-	async run(source, user) {
         const pronouns = await pronounDb('discord', user.id)
             .then(pronouns => Pronouns[pronouns])
             .catch(() => Pronouns.unspecified);
 
         const embed = PRONOUNS(pronouns, { name: user.username, avatar: user.displayAvatarURL() });
-		return sendMessage(source, { embeds: [embed] });
-	}
+		return sendMessage(interaction, { embeds: [embed] });
+    },
 };
