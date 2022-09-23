@@ -1,4 +1,4 @@
-const { AutocompleteInteraction, CommandInteraction, Message } = require('discord.js');
+const { AutocompleteInteraction, CommandInteraction } = require('discord.js');
 const { InteractionType, CommandType, Categories } = require('../../assets/constants.js');
 const { HELP } = require('../../assets/messages.js');
 const { sendMessage } = require('../../utils/command.js');

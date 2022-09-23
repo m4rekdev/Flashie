@@ -1,4 +1,4 @@
-const { AutocompleteInteraction, CommandInteraction, Message, version: discordJsVersion, Client } = require('discord.js');
+const { AutocompleteInteraction, CommandInteraction, version: discordJsVersion, Client } = require('discord.js');
 const { totalmem, cpus, freemem } = require('os');
 const ms = require('ms');
 const { InteractionType, CommandType, Categories } = require('../../assets/constants.js');
