@@ -1,8 +1,8 @@
 const { AutocompleteInteraction, CommandInteraction, User } = require('discord.js');
-const { InteractionType, CommandType, Categories, OptionType, Pronouns } = require('../../assets/constants.js');
-const { PRONOUNS } = require('../../assets/messages.js');
-const { pronounDb } = require('../../assets/utils.js');
-const { sendMessage } = require('../../utils/command.js');
+const { InteractionType, CommandType, Categories, OptionType, Pronouns } = require('../../../assets/constants.js');
+const { PRONOUNS } = require('../../../assets/messages.js');
+const { pronounDb } = require('../../../assets/utils.js');
+const { sendMessage } = require('../../../utils/command.js');
 
 module.exports = {
     type: InteractionType.ApplicationCommand,
