@@ -1,4 +1,4 @@
-const { EmbedBuilder, ButtonBuilder, ButtonStyle, User } = require('discord.js');
+const { EmbedBuilder, ButtonBuilder, ButtonStyle, User, Guild } = require('discord.js');
 const { Emoji, Categories } = require('./constants.js');
 const { BaseUrl, RepositoryUrl, AccentColor } = require('../config.js');
 
@@ -169,6 +169,39 @@ module.exports = {
 					`[512](${user.displayAvatarURL({ size: 512, dynamic: true })})`,
 					`[1024](${user.displayAvatarURL({ size: 1024, dynamic: true })})`,
 					`[2048](${user.displayAvatarURL({ size: 2048, dynamic: true })})`
+				].join(' | ')
+			].join('\n')),
+
+    /**
+     * 
+     * @param {Guild} guild
+     * @returns {object} Discord Embed object
+     */
+    GUILDICON: (guild) =>
+        new EmbedBuilder()
+            .setColor(AccentColor)
+            .setAuthor({
+                name: guild.name,
+                iconURL: guild.iconURL(),
+            })
+            .setImage(guild.iconURL({ size: 2048, dynamic: true }))
+            .setDescription([
+                [
+                    '`Formats`',
+                    `[png](${guild.iconURL({ size: 2048, format: 'png' })})`,
+					`[jpg](${guild.iconURL({ size: 2048, format: 'jpg' })})`,
+					`[webp](${guild.iconURL({ size: 2048, format: 'webp' })})`
+				].join(' | '),
+				[
+                    '`Sizes`',
+					`[16](${guild.iconURL({ size: 16, dynamic: true })})`,
+					`[32](${guild.iconURL({ size: 32, dynamic: true })})`,
+					`[64](${guild.iconURL({ size: 64, dynamic: true })})`,
+					`[128](${guild.iconURL({ size: 128, dynamic: true })})`,
+					`[256](${guild.iconURL({ size: 256, dynamic: true })})`,
+					`[512](${guild.iconURL({ size: 512, dynamic: true })})`,
+					`[1024](${guild.iconURL({ size: 1024, dynamic: true })})`,
+					`[2048](${guild.iconURL({ size: 2048, dynamic: true })})`
 				].join(' | ')
 			].join('\n')),
 };
