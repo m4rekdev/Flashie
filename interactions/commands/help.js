@@ -12,7 +12,7 @@ module.exports = {
         options: [],
     },
 
-    category: Categories.General,
+    category: Categories.Util,
 
     /**
      * @param {AutocompleteInteraction} interaction 
