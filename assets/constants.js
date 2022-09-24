@@ -32,7 +32,8 @@ module.exports = {
         minecraft: 'Minecraft',
     },
     Emoji: {
-        KittyComfy: '<:kittycomfy:1021101256284065863>',
+        ComfyPepe: '<:FlashieComfyPepe:1022931345200119848>',
+        LovelyCat: '<:FlashieLovelyCat:1022933569590546492>',
     },
     Categories: {
         Util: 'Util',
