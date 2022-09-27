@@ -57,12 +57,10 @@ module.exports = {
      */
      async runInteraction(interaction) {
         const platform = interaction.options.getSubcommand();
-        
-        const { value } = interaction.options.get('player_name');
-        const { user } = interaction.options.get('user');
+        const target = interaction.options.getString('player_name') ?? interaction.options.getUser('user');
 
         await interaction.deferReply();
-        return await this.run(interaction, platform, (user || value));
+        return await this.run(interaction, platform, (target));
     },
     
     /**
