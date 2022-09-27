@@ -3,8 +3,9 @@ const { EmbedBuilder, ButtonBuilder, ButtonStyle, User, Guild } = require('disco
 =======
 const { EmbedBuilder, ButtonBuilder, ButtonStyle, User } = require('discord.js');
 >>>>>>> f09c2c255177e82600772f77829077046f062662
-const { Emoji, Categories } = require('./constants.js');
+const { Emoji, Categories, Platform } = require('./constants.js');
 const { BaseUrl, RepositoryUrl, AccentColor } = require('../config.js');
+const platforms = require('../utils/platforms.js');
 
 module.exports = {
     GUILD_ONLY: new EmbedBuilder()
@@ -16,14 +17,31 @@ module.exports = {
             .setColor(AccentColor)
             .setTitle('Error')
             .setDescription('Couldn\'t find any matches to your search!'),
+    /**
+     * @returns {EmbedBuilder} Discord Embed object
+     */
+    INVALID_PLATFORM: () => {
+        const platformsList = Object.values(Platform).join(' | ');
+
+        return new EmbedBuilder()
+                    .setColor(AccentColor)
+                    .setTitle('Error')
+                    .setDescription(`Invalid platform!\n\`Platforms\` ${platformsList}`)
+    },
+
+    NO_TARGET:
+        new EmbedBuilder()
+            .setColor(AccentColor)
+            .setTitle('Error')
+            .setDescription('You need to specify the target (username or mention)!'),
 
     SLASHCOMMAND_WARNING: (commandName) =>
         new EmbedBuilder()
             .setColor(AccentColor)
             .setTitle('You need to use this command as a slash command!')
-            .setDescription(`You can only use this command by using the **Slash Command**. Please use \`/${commandName}\` instead to execute this command. Non-Slash commands will be disappearing as of **October 2022**.\n
+            .setDescription(`You can only execute this command using **Slash Commands**. Please use \`/${commandName}\` instead to execute this command. Non-Slash commands will be disappearing as of **October 2022**.\n
             It is important to note that **all bots** will be **required** to use Slash Commands by **October 2022**.\n
-            Using [this link](${BaseUrl.Base}${BaseUrl.BotInvite}) can help you get the bot invited again if the server you are on doesn't show **Froggie's slash commands**. The bot **doesn't need to be kicked**, it just needs to be **invited again**!`),
+            Using [this link](${BaseUrl.Base}${BaseUrl.BotInvite}) can help you get the bot invited again if the server you are on doesn't show **Flashie's slash commands**. The bot **doesn't need to be kicked**, it just needs to be **invited again**!`),
 
     /**
      * 
@@ -71,7 +89,7 @@ module.exports = {
                 },
             ),
 
-    STATS_RECORDING: 'While the statistics are initializing, please wait.',
+    STATS_RECORDING: 'Initializing stats, please wait.',
 
     /**
      * 
@@ -109,12 +127,36 @@ module.exports = {
         new EmbedBuilder()
             .setColor(AccentColor)
             .setTitle('Cozy')
-            .setDescription(`You're looking cozy today! ${Emoji.KittyComfy}`)
+            .setDescription(`${Emoji.ComfyPepe} Look, so cozy!`)
             .addFields(
                 { name: 'Platform', value: platform, inline: true },
                 { name: 'Target', value: target, inline: true },
             )
             .setImage(`attachment://${attachmentName}`),
+
+    /**
+     * 
+     * @param {string} attachmentName Attachment name
+     * @param {string} platform Platform name
+     * @param {string} target Target name
+     * @returns {object} Discord Embed object
+     */
+    SHIP: (attachmentName, platform, target) =>
+        new EmbedBuilder()
+            .setColor(AccentColor)
+            .setTitle('Ship')
+            .setDescription(`${Emoji.LovelyCat} Lovely!`)
+            .addFields(
+                { name: 'Platform', value: platform, inline: true },
+                { name: 'Target', value: target, inline: true },
+            )
+            .setImage(`attachment://${attachmentName}`),
+
+    SHIP_YOURSELF: 
+        new EmbedBuilder()
+            .setColor(AccentColor)
+            .setTitle('Ship')
+            .setDescription(`You can't ship yourself, silly!`),
 
     /**
      * 
