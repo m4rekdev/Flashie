@@ -49,4 +49,13 @@ module.exports = {
 
         resolve(client.users.fetch(userId));
     }),
+    
+    /**
+     * @param {String} username
+     */
+    fetchUserFromUsername: (username) => new Promise((resolve, reject) => {
+        if (!username) return reject('Invalid username');
+    
+        resolve(client.users.cache.find(user => user.username === username));
+    }),
 };

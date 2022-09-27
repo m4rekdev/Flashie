@@ -25,7 +25,7 @@ module.exports = {
 
             if (command.guildOnly && !guildId) return sendMessage(interaction, { embeds: [GUILD_ONLY] });
 
-            return await command.slashcommand(interaction);
+            return await command.runInteraction(interaction);
         } catch (error) {
             const { embed, button } = await reportError(user, error, { type: 'Interaction Command', name: commandName });
             const row = new ActionRowBuilder().addComponents(button);

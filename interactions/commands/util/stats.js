@@ -27,10 +27,24 @@ module.exports = {
     /**
      * @param {CommandInteraction} interaction 
      */
-    async slashcommand(interaction) {
-        const { client } = interaction;
+     async runInteraction(interaction) {
+        await interaction.deferReply();
+        return await this.run(interaction, interaction.client);
+    },
+    
+    /**
+     * @param {Message} message 
+     * @param {array} arguments 
+     */
+    async runMessage(message, arguments) {
+        return await this.run(message, message.client);
+    },
 
-        const botMessage = await sendMessage(interaction, { content: STATS_RECORDING });
+    /**
+     * @param {CommandInteraction | Message} source
+     */
+    async run(source, client) {
+        const botMessage = await sendMessage(source, { content: STATS_RECORDING });
 
         //* Bot statistics
         const botStatistics = {
@@ -43,7 +57,7 @@ module.exports = {
         //* Latency details
         const wsPing = Math.round(client.ws.ping);
         const cfPing = 2;
-		const roundTrip = (botMessage.editedTimestamp || botMessage.createdTimestamp) - (interaction.editedTimestamp || interaction.createdTimestamp);
+		const roundTrip = (botMessage.editedTimestamp || botMessage.createdTimestamp) - (source.editedTimestamp || source.createdTimestamp);
         const latencyDetails = {
             discord: roundTrip - wsPing > 0 ? roundTrip - wsPing - cfPing : roundTrip - cfPing,
             websocket: wsPing - cfPing,

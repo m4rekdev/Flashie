@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { User } = require('discord.js');
+const { fetchUser, fetchUserFromUsername } = require('./command');
 
 module.exports = {
     /**
@@ -7,9 +8,16 @@ module.exports = {
      * @returns {object | Error}
      */
     discord: (user) => new Promise((resolve, reject) => {
-        if (!(user instanceof User)) reject({ message: 'INVALID_USER' });
+        if (typeof user === "string") {
+            if (user.startsWith('<@') && user.endsWith('>')) user = fetchUser(user)
+                .then((user) =>  resolve({ name: user.username, avatar: user.displayAvatarURL({ extension: 'png', size: 256 }), id: user.id }))
+                .catch((error) => reject({ message: 'INVALID_USER' }));
+            else user = fetchUserFromUsername(user)
+                .then((user) =>  resolve({ name: user.username, avatar: user.displayAvatarURL({ extension: 'png', size: 256 }), id: user.id }))
+                .catch((error) => reject({ message: 'INVALID_USER' }));
 
-        resolve({ name: user.username, avatar: user.displayAvatarURL({ extension: 'png', size: 256 }) });
+            
+        } else if (!(user instanceof User)) reject({ message: 'INVALID_USER' });
     }),
 
     /**
@@ -25,7 +33,7 @@ module.exports = {
             .then(name => {
                 if (!name) reject({ message: 'INVALID_USER' });
 
-                resolve({ name, avatar: `https://minotar.net/helm/${name}/256`});
+                resolve({ name, avatar: `https://minotar.net/helm/${name}/256` });
             });
     }),
 }

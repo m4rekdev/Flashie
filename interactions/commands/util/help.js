@@ -25,9 +25,23 @@ module.exports = {
     /**
      * @param {CommandInteraction} interaction 
      */
-    async slashcommand(interaction) {
-        const { client } = interaction;
+     async runInteraction(interaction) {
+        await interaction.deferReply();
+        return await this.run(interaction, interaction.client);
+    },
+    
+    /**
+     * @param {Message} message 
+     * @param {array} arguments 
+     */
+    async runMessage(message, arguments) {
+        return await this.run(message, message.client);
+    },
 
+    /**
+     * @param {CommandInteraction | Message} source
+     */
+    async run(source, client) {
         const commands = client.interactions[InteractionType.ApplicationCommand].filter(commands => commands.data.type === CommandType.ChatInput);
         const categories = commands.reduce((array, { data, category }) => {
             (array[category] ??= []).push(data.name);
@@ -35,6 +49,6 @@ module.exports = {
         }, {});
 
         const embed = HELP(categories);
-		return sendMessage(interaction, { embeds: [embed] });
+		return sendMessage(source, { embeds: [embed] });
     },
 };

@@ -1,10 +1,10 @@
-const { AutocompleteInteraction, CommandInteraction, Message, AttachmentBuilder } = require('discord.js');
+const { AutocompleteInteraction, CommandInteraction, Message, AttachmentBuilder, User } = require('discord.js');
 const Canvas = require('canvas');
 const { InteractionType, CommandType, OptionType, Platform, Categories } = require('../../../assets/constants.js');
 const { sendMessage } = require('../../../utils/command.js');
 const { roundImage } = require('../../../utils/imagetransformation.js');
 const platforms = require('../../../utils/platforms.js');
-const { COZY, NO_RESULTS } = require('../../../assets/messages.js');
+const { COZY, NO_RESULTS, INVALID_PLATFORM, NO_TARGET } = require('../../../assets/messages.js');
 
 module.exports = {
     type: InteractionType.ApplicationCommand,
@@ -55,13 +55,37 @@ module.exports = {
     /**
      * @param {CommandInteraction} interaction 
      */
-    async slashcommand(interaction) {
+     async runInteraction(interaction) {
         const platform = interaction.options.getSubcommand();
-        const target = interaction.options.getString('player_name') ?? interaction.options.getUser('user');
+        
+        const { value } = interaction.options.get('player_name');
+        const { user } = interaction.options.get('user');
 
         await interaction.deferReply();
+        return await this.run(interaction, platform, (user || value));
+    },
+    
+    /**
+     * @param {Message} message 
+     * @param {array} arguments 
+     */
+    async runMessage(message, arguments) {
+        const [ platform, target ] = arguments;
 
-        await platforms[platform](target).then(async ({ name, avatar: fetchedAvatar }) => {
+        if (!platforms[platform]) return sendMessage(message, { embeds: [INVALID_PLATFORM()] });
+        if (!target) return sendMessage(message, { embeds: [NO_TARGET] });
+
+        return await this.run(message, platform, target);
+    },
+
+    /**
+     * @param {CommandInteraction | Message} source 
+     * @param {String} platform 
+     * @param {User} target 
+     * @returns {Promise}
+     */
+    async run(source, platform, target) {
+        await platforms[platform](target, source.client).then(async ({ name, avatar: fetchedAvatar }) => {
             const canvas = Canvas.createCanvas(256, 256);
             const context = canvas.getContext('2d');
 
@@ -79,7 +103,7 @@ module.exports = {
             const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: attachmentName });
             const embed = COZY(attachmentName, Platform[platform], name);
 
-            return sendMessage(interaction, { embeds: [embed], files: [attachment] });
+            return sendMessage(source, { embeds: [embed], files: [attachment] });
         }).catch(error => new Promise((resolve, reject) => {
             switch (error.message) {                
                 default:
@@ -90,7 +114,7 @@ module.exports = {
                     break;
             }
 
-            resolve(sendMessage(interaction, response));
+            resolve(sendMessage(source, response));
         }));
     },
 };

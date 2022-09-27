@@ -26,7 +26,8 @@ module.exports = {
         if (!command) return;
 
         try {
-            return await sendMessage(message, { embeds: [SLASHCOMMAND_WARNING(commandName)] });
+            return await command.runMessage(message, arguments);
+            // return await sendMessage(message, { embeds: [SLASHCOMMAND_WARNING(commandName)] });
         } catch (error) {
             const { embed, button } = await reportError(user, error, { type: 'Message Command', name: commandName });
             const row = new ActionRowBuilder().addComponents(button);
